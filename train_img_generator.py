@@ -18,6 +18,7 @@ class TrainImageGenerator:
     TRAIN_IMG_DIR = "datasets/{}"
     POSITIVE_TRAIN_IMG_DIR = "datasets/{}/positive"
     NEGATIVE_TRAIN_IMG_DIR = "datasets/{}/negative"
+    IMG_DIM = (32, 64)
 
     def __init__(self, target, target_dict):
         self.target = target
@@ -36,7 +37,7 @@ class TrainImageGenerator:
             x_min, y_min, x_max, y_max = bbox
             labeled_img = img[y_min:y_max, x_min:x_max]
             rescaled_img = cv2.resize(
-                labeled_img, (32, 64), interpolation=cv2.INTER_CUBIC
+                labeled_img, TrainImageGenerator.IMG_DIM, interpolation=cv2.INTER_CUBIC
             )
             cv2.imwrite(
                 os.path.join(
@@ -62,7 +63,9 @@ class TrainImageGenerator:
             negative_images = np.array_split(img, 10, axis=0)
             for negative_img in negative_images:
                 rescaled_img = cv2.resize(
-                    negative_img, (64, 128), interpolation=cv2.INTER_CUBIC
+                    negative_img,
+                    TrainImageGenerator.IMG_DIM,
+                    interpolation=cv2.INTER_CUBIC,
                 )
                 cv2.imwrite(
                     os.path.join(
