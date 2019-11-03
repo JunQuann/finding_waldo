@@ -36,7 +36,7 @@ class TrainImageGenerator:
             x_min, y_min, x_max, y_max = bbox
             labeled_img = img[y_min:y_max, x_min:x_max]
             rescaled_img = cv2.resize(
-                labeled_img, (64, 128), interpolation=cv2.INTER_CUBIC
+                labeled_img, (32, 64), interpolation=cv2.INTER_CUBIC
             )
             cv2.imwrite(
                 os.path.join(
